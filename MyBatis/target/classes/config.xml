@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--resource是类路径下的-->
+    <!--URL是全局路径的-->
+    <properties resource="dbconfig.properties"></properties>
+    <!--起别名-->
+    <typeAliases>
+        <typeAlias type="com.mybatis.entity.User"></typeAlias>
+        <!--为包起别名-->
+        <package name="com.mybatis.entity"></package>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!--数据库连接池配置-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--告诉MyBatis接口实现的配置文件,注册进来-->
+    <!--如果文件在类路径下,前面不用加包名-->
+    <mappers>
+        <!--方式一:将配置文件放在类目录下,引用过来-->
+        <mapper resource="imp.xml"/>
+
+        <!--方式二:将类注册进来,使用全类名,可以用注解,如果用配置文件,那么配置文件的名字要和类名相同-->
+        <!--<mapper class="com.mybatis.dao.Userannotion"></mapper>-->
+
+        <!--方式三:将这个包下的所有类都注册进来-->
+        <!--<package name="com.mybatis.dao"></package>-->
+
+        <!--以上三种方式满足一种就可以,不能重复注册-->
+    </mappers>
+
+</configuration>
